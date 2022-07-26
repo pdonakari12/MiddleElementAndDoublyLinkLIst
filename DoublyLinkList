@@ -1,0 +1,210 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Node{
+	public:
+	int data;
+	Node *prev;
+    Node *next;
+};
+
+Node *head =NULL;
+
+void insertAtBeg(int n)
+{
+    Node *p=new Node;
+    p->data=n;
+    p->prev=NULL;
+    p->next=NULL;
+    
+    if(head==NULL)
+    {
+        head=p;
+    }
+    else{
+        p->next=head;
+        head->prev=p;
+        head=p;
+    }
+}
+
+void Insertatend(int n)
+{
+	Node *p=new Node;
+    p->data=n;
+    p->prev=NULL;
+    p->next=NULL;
+    Node *temp=head;
+    
+    
+     while (temp->next!=NULL)
+     {
+        temp=temp->next;
+     }
+     temp->next=p;
+     p->prev=temp;
+     
+}
+
+void insertAtPos(int n,int pos)
+{
+    Node *p=new Node;
+    p->data=n;
+    p->prev=NULL;
+    p->next=NULL;
+    Node *temp=head;
+    int i=1;
+    while (i<pos-1)
+    {
+        temp=temp->next;
+        i++;
+    }
+
+    p->next=temp->next;
+    p->prev=temp;
+    temp->next=p;
+    temp->next->prev=p;
+    
+}
+
+    
+	
+void traverse()
+{
+	while(head!=NULL)
+	{   
+		cout<<head->data<<"\t";
+		head=head->next;
+	}
+}
+
+void deleteAtBeg()
+{
+    if(head!=NULL)
+    {
+         cout<<"UnderFlow!!";
+    }
+    else
+    {
+    head=head->next;
+    delete(head->prev);
+    head->prev=NULL;
+    }
+}
+
+void deleteAtEnd()
+{
+    Node *temp=head;
+    if(head!=NULL)
+    {
+         cout<<"UnderFlow!!";
+    }
+    else
+    {
+ 
+ while (temp->next!=NULL)
+ {
+   temp=temp->next;
+ }
+ temp->prev->next=NULL;
+ delete(temp);
+ 
+    }
+    
+}
+
+
+void deleteAtPos(int pos)
+{
+    Node *temp=head;
+    int i=1;
+    if(head!=NULL)
+    {
+         cout<<"UnderFlow!!";
+    }
+    else
+    {
+       while (i<pos)
+       {
+        temp=temp->next;
+        i++;
+       }
+
+       temp->prev->next=temp->next;
+       temp->next->prev=temp->prev;
+       delete(temp);
+       
+    }
+}
+
+
+ 
+int main() {
+	
+	 int choice;
+    char ch='y';
+	int value;
+    int pos;
+
+	
+do{
+	cout<<"Please Enter Choice";
+    cout<<endl;
+    cin>>choice;
+		
+	switch(choice)
+	{
+		case 1:
+		cout<<"Enter value to insert at begning";
+        cout<<endl;
+		cin>>value;
+		insertAtBeg(value);
+		break;
+		case 2:
+        cout<<"Enter value to insert at end";
+        cout<<endl;
+        cin>>value;
+		Insertatend(value);
+		break;
+		case 3:
+        cout<<"Enter value to specific position";
+        cout<<endl;
+        cin>>value;
+        cout<<endl;
+        cin>>pos;
+	    insertAtPos(value,pos);
+		break;
+		case 4:
+		traverse();
+        cout<<endl;
+		break;
+        case 5:		
+		cout<<"Deleted at begning";       
+		deleteAtBeg();
+		break;
+		case 6:
+        cout<<"Deleted at end";       
+		deleteAtEnd();
+		break;
+		case 7:        
+        cout<<"Enter Position want to delete";
+        cout<<endl;
+	    deleteAtPos(pos);
+		break;
+		default:"Wrong User Input";
+		break;		
+	}
+	
+	cout<<"Do you want to continue";
+    cout<<endl;
+	cin>>ch;
+	
+}
+while(ch=='y');
+    
+    return 0;   
+
+}
