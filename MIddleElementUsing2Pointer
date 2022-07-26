@@ -1,0 +1,71 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Node{
+	public:
+	int data;
+	Node *add;
+};
+
+void Insertatend(Node *temp ,int n)
+{
+	Node *p =new Node;
+	p->data=n;
+	p->add=NULL;
+	while(temp->add!=NULL)
+	{
+		temp=temp->add;
+	}
+	temp->add=p;
+}
+
+    void printMiddle(Node* head)
+    { 
+        Node *s_ptr=head;
+        Node *f_ptr=head;
+        if(head!=NULL)
+        {
+            while(f_ptr!=NULL && f_ptr->add!=NULL)
+            {
+                f_ptr=f_ptr->add->add;
+                s_ptr=s_ptr->add;
+            }
+            cout<<"Middle Element is  "<<s_ptr->data<<endl;
+        }
+    }
+	
+void traverse(Node *temp)
+{
+	while(temp!=NULL)
+	{   
+		cout<<temp->data<<"\t";
+		temp=temp->add;
+	}
+}
+
+
+ 
+int main() {
+	
+	 Node* head = new Node; 
+	 head->data=8;
+	head->add=NULL;   
+   
+        Insertatend(head, 5);   
+		Insertatend(head, 3); 
+		Insertatend(head, 1); 
+		Insertatend(head, 4); 
+		Insertatend(head, 8); 
+		Insertatend(head, 6); 
+		Insertatend(head, 9);
+		Insertatend(head, 7);
+		traverse(head);
+		cout<<endl;
+        printMiddle(head);
+    
+    return 0;   
+
+}
